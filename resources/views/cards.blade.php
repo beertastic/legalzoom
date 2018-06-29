@@ -1,6 +1,5 @@
 <html>
 <head>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
@@ -30,36 +29,37 @@ Here are 52 cards. Choose Higher of lower correctly, to stay in the game.
 
     $(document).ready(function(){
 
-        $('.higher').on('click', function() {
+        $('body').on('click', '.higher', function() {
             var count = $(this).data("card") + 1;
             $.get( "nextcard/" + $(this).data("card"), function( data ) {
-                console.log(data);
-                if (data.value < $(this).data('value')) {
+                var cd = JSON.parse( data );
+                if (cd.value < $(this).data('value')) {
                     // FAILED.. generate error or restar game etc
+                    console.log('failed!');
                 } else {
 
                     $("#show_cards").append("    <div class=\"my_cards\" >\n" +
-                        "        <div class=\"card\">" + data.suit + " - " + data.value + "</div>\n" +
-                        "        <div class=\"higher\" data-value=\"" + data.value + "\" data-card=\"" + count + "\">+++</div>\n" +
-                        "        <div class=\"lower\" data-value=\"" + data.value + "\" data-card=\"" + count + "\">---</div>\n" +
+                        "        <div class=\"card\">" + cd.suit + " - " + cd.value + "</div>\n" +
+                        "        <div class=\"higher\" data-number=\"" + cd.value + "\" data-card=\"" + count + "\">+++</div>\n" +
+                        "        <div class=\"lower\" data-number=\"" + cd.value + "\" data-card=\"" + count + "\">---</div>\n" +
                         "    </div>");
                 }
             });
         });
 
-
-        $('.lower').on('click', function() {
+        $('body').on('click', '.lower', function() {
             var count = $(this).data("card") + 1;
             $.get( "nextcard/" + $(this).data("card"), function( data ) {
-                console.log(data);
-                if (data.value > $(this).data('value')) {
+                var cd = JSON.parse( data );
+                if (cd.value > $(this).data('value')) {
                     // FAILED.. generate error or restar game etc
+                    console.log('failed!');
                 } else {
 
                     $("#show_cards").append("    <div class=\"my_cards\" >\n" +
-                        "        <div class=\"card\">" + data.suit + " - " + data.value + "</div>\n" +
-                        "        <div class=\"higher\" data-value=\"" + data.value + "\" data-card=\"" + count + "\">+++</div>\n" +
-                        "        <div class=\"lower\" data-value=\"" + data.value + "\" data-card=\"" + count + "\">---</div>\n" +
+                        "        <div class=\"card\">" + cd.suit + " - " + cd.value + "</div>\n" +
+                        "        <div class=\"higher\" data-number=\"" + cd.value + "\" data-card=\"" + count + "\">+++</div>\n" +
+                        "        <div class=\"lower\" data-number=\"" + cd.value + "\" data-card=\"" + count + "\">---</div>\n" +
                         "    </div>");
                 }
             });

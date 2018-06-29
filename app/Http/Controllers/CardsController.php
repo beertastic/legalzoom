@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Cards;
+use Illuminate\Support\Facades\Session;
 
 class CardsController extends Controller
 {
     public function __construct()
     {
-        $this->cards = new Cards();
-        $this->game = $this->cards->shuffle();
+        //
     }
 
     public function index() {
-        $data['card'] = $this->game[0];
+        $getCards = new Cards();
+        $shuffle = $getCards->shuffle();
+        Session::push('game', $shuffle);
+        $data['card'] = $shuffle[0];
         return view('cards', $data);
 
     }
@@ -23,7 +26,8 @@ class CardsController extends Controller
         return $this->cards->shuffle();
     }
 
-    public function getNextCard($card_number){
-        echo json_encode($this->game[$card_number]);
+    public function getNextCard($card_number) {
+        $getCards = Session::get('game');
+        echo json_encode( $getCards[0][$card_number] );
     }
 }
