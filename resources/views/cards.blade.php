@@ -33,7 +33,7 @@ Here are 52 cards. Choose Higher of lower correctly, to stay in the game.
             var count = $(this).data("card") + 1;
             $.get( "nextcard/" + $(this).data("card"), function( data ) {
                 var cd = JSON.parse( data );
-                if (cd.value < $(this).data('value')) {
+                if (cd.value < $(this).data('number')) {
                     // FAILED.. generate error or restar game etc
                     console.log('failed!');
                 } else {
@@ -51,7 +51,7 @@ Here are 52 cards. Choose Higher of lower correctly, to stay in the game.
             var count = $(this).data("card") + 1;
             $.get( "nextcard/" + $(this).data("card"), function( data ) {
                 var cd = JSON.parse( data );
-                if (cd.value > $(this).data('value')) {
+                if (cd.value > $(this).data('number')) {
                     // FAILED.. generate error or restar game etc
                     console.log('failed!');
                 } else {
